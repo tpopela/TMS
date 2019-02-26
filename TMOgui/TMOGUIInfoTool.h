@@ -2,6 +2,8 @@
 #define __INFOTOOL_H
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <QMouseEvent>
 
 class TMOGUIBitmap;
 class TMOGUITool;

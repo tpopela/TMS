@@ -3,11 +3,11 @@
 #include <qassistantclient.h>
 #include <qdir.h>
 #include <qpushbutton.h>
-#include <qhbox.h>
+#include <q3hbox.h>
 #include <qsplitter.h>
 #include <qworkspace.h>
 #include <qworkspace.h>
-#include <qfiledialog.h>
+#include <q3filedialog.h>
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qimage.h>
@@ -17,10 +17,14 @@
 #include <qprinter.h>
 #include <qpainter.h>
 #include <qregexp.h>
-#include <qwmatrix.h>
-#include <qtoolbar.h>
+#include <qmatrix.h>
+#include <q3toolbar.h>
 #include <qaction.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QPixmap>
+#include <Q3Frame>
 #include "../tmolib/TMO.h"
 #include "tmoguiwindow.h"
 #include "TMOGUIToneMapping.h"
@@ -46,8 +50,8 @@
 
 TMOGUIResource* TMOResource::pResource = 0;
 
-TMOGUIWindow::TMOGUIWindow( QWidget* parent, const char* name, WFlags f )
-	: QMainWindow( parent, name, f )
+TMOGUIWindow::TMOGUIWindow( QWidget* parent, const char* name, Qt::WFlags f )
+	: Q3MainWindow( parent, name, f )
 {
 	pMargins[0] = pMargins[1] = pMargins[2] = pMargins[3] = 10;
 	TMOResource::pResource = new TMOGUIResource(this, "Resources");
@@ -71,9 +75,9 @@ int TMOGUIWindow::Create()
 	pProgress = new TMOGUIProgressBar(pStatus, "Progress");
 	pProgress->SetLabel("");
 	pRightSplitter = new QSplitter(this, "RightSplitter");
-	pRightSplitter->setFrameStyle( QFrame::Sunken | QFrame::Panel );
+	pRightSplitter->setFrameStyle( Q3Frame::Sunken | Q3Frame::Panel );
 	pSplitter = new QSplitter(pRightSplitter, "BottomSplitter");
-	pSplitter->setOrientation(Vertical);
+	pSplitter->setOrientation(Qt::Vertical);
 	pWorkspace = new QWorkspace(pSplitter, "Workspace");
 	pInfo = TMOGUIOutput::pInfo = new TMOGUIInfo(pSplitter, "Info");
 	pRight = new TMOGUIRightBar(pRightSplitter, "RightBar");
@@ -172,7 +176,7 @@ void TMOGUIWindow::openFile(QString fileName)
 void TMOGUIWindow::openFile()
 {
 
-	openFile( QFileDialog::getOpenFileName
+	openFile( Q3FileDialog::getOpenFileName
 		( QString::null, "HDR images (*.raw *.hdrraw *.tif *.tiff *.pic *.hdr *.exr *.jpg *.jpeg);; *.raw;; *.hdrraw;; *.tif;; *.tiff;; *.pic;; *.hdr;; *.exr;; *.jpg;; *.jpeg;; *.png;; *.ppm;; All files (*.*)", this )
         	);
 }
@@ -747,7 +751,7 @@ void TMOGUIWindow::OperationFirst(int iImage)
 	pImages[0] = temp;
 	QPixmap *tempPixmap = temp->pImage->pSrcPixmap;
 	QImage tempImage(160, 160, 32);
-    QWMatrix m;
+    QMatrix m;
 	double aspect;
 	if (tempPixmap->height() > tempPixmap->width())
 		aspect = 160.0 / tempPixmap->height();
@@ -770,7 +774,7 @@ void TMOGUIWindow::OperationSecond(int iImage)
 	pImages[1] = temp;
 	QPixmap *tempPixmap = temp->pImage->pSrcPixmap;
 	QImage tempImage(160, 160, 32);
-    QWMatrix m;
+    QMatrix m;
 	double aspect;
 	if (tempPixmap->height() > tempPixmap->width())
 		aspect = 160.0 / tempPixmap->height();
@@ -794,7 +798,7 @@ void TMOGUIWindow::MergeComponentsRed(int iImage)
 	pImages[0] = temp;
 	QPixmap *tempPixmap = temp->pImage->pSrcPixmap;
 	QImage tempImage(160, 160, 32);
-    QWMatrix m;
+    QMatrix m;
 	double aspect;
 	if (tempPixmap->height() > tempPixmap->width())
 		aspect = 160.0 / tempPixmap->height();
@@ -813,7 +817,7 @@ void TMOGUIWindow::MergeComponentsRed(int iImage)
 			*pRgb = qRgb( qRed(*pRgb), 0 , 0);
 		}
 	}
-	aPixmap.convertFromImage(tempImage, ColorOnly);
+	aPixmap.convertFromImage(tempImage, Qt::ColorOnly);
 	
 	emit signalMergeComRed(aPixmap);
 }
@@ -830,7 +834,7 @@ void TMOGUIWindow::MergeComponentsGreen(int iImage)
 	pImages[1] = temp;
 	QPixmap *tempPixmap = temp->pImage->pSrcPixmap;
 	QImage tempImage(160, 160, 32);
-    QWMatrix m;
+    QMatrix m;
 	double aspect;
 	if (tempPixmap->height() > tempPixmap->width())
 		aspect = 160.0 / tempPixmap->height();
@@ -849,7 +853,7 @@ void TMOGUIWindow::MergeComponentsGreen(int iImage)
 			*pRgb = qRgb( 0, qGreen(*pRgb), 0);
 		}
 	}
-	aPixmap.convertFromImage(tempImage, ColorOnly);
+	aPixmap.convertFromImage(tempImage, Qt::ColorOnly);
 	emit signalMergeComGreen(aPixmap);
 }
 
@@ -865,7 +869,7 @@ void TMOGUIWindow::MergeComponentsBlue(int iImage)
 	pImages[2] = temp;
 	QPixmap *tempPixmap = temp->pImage->pSrcPixmap;
 	QImage tempImage(160, 160, 32);
-    QWMatrix m;
+    QMatrix m;
 	double aspect;
 	if (tempPixmap->height() > tempPixmap->width())
 		aspect = 160.0 / tempPixmap->height();
@@ -884,7 +888,7 @@ void TMOGUIWindow::MergeComponentsBlue(int iImage)
 			*pRgb = qRgb( 0, 0, qBlue(*pRgb));
 		}
 	}
-	aPixmap.convertFromImage(tempImage, ColorOnly);
+	aPixmap.convertFromImage(tempImage, Qt::ColorOnly);
 	emit signalMergeComBlue(aPixmap);
 }
 
@@ -1141,12 +1145,12 @@ int TMOGUIWindow::SavePosition()
 {
 	QFile f("position.dat");
 	QString temp;
-	QValueList<int> vl;
-	QValueList<int>::Iterator i;
+	Q3ValueList<int> vl;
+	Q3ValueList<int>::Iterator i;
 
-	if (f.open(IO_WriteOnly))
+	if (f.open(QIODevice::WriteOnly))
 	{
-        QTextStream t( &f );        
+        Q3TextStream t( &f );        
 
 		temp.setNum(x());
 		t << "X = " << temp + "\n";
@@ -1188,11 +1192,11 @@ int TMOGUIWindow::LoadPosition()
 	QString temp;
 	int x = 0, y = 0, bottom = 0, right = 0, bottom1 = 0, right1 = 0;
 	bool bBottom = true, bRight = true, bMaximized = false;
-	QValueList<int> vl;
+	Q3ValueList<int> vl;
 
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
-        QTextStream t( &f );        
+        Q3TextStream t( &f );        
         QString s;
         while ( !t.eof() )			
 		{

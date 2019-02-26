@@ -7,6 +7,11 @@
 #include <qpainter.h>
 #include <qlayout.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <Q3PointArray>
+#include <QMouseEvent>
+#include <QPaintEvent>
 #include <math.h>
 #include "gamma.h"
 
@@ -17,7 +22,7 @@
 //////////////////////////////////////////////////////////////////////
 
 TMOGUIToneSlider::TMOGUIToneSlider(QWidget* parent, const char * name):
-	QWidget(parent, name, WRepaintNoErase | WResizeNoErase)
+	QWidget(parent, name, Qt::WNoAutoErase | Qt::WResizeNoErase)
 {
 	setFixedHeight(20);
 	iBlack = iWhite = iGamma = 0;
@@ -221,7 +226,7 @@ void TMOGUIToneSlider::setlog()
 
 int TMOGUIToneSlider::DrawMarker(QPainter* p, int x, QColor col)
 {
-	QPointArray pa(3);
+	Q3PointArray pa(3);
 
 	pa.setPoint(0, x-4, 19);
 	pa.setPoint(1, x, 10);

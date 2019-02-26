@@ -12,7 +12,7 @@ map<wstring,HMODULE> mapModules;
 
 #define MAX_OPERATORS 256
 
-BOOL APIENTRY DllMain( HANDLE hModule, 
+BOOL APIENTRY DllMain( Qt::HANDLE hModule, 
                        DWORD  ul_reason_for_call, 
                        LPVOID lpReserved
 					 )

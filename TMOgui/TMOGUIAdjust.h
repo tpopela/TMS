@@ -1,7 +1,7 @@
 // TMOGUIAdjust.h: interface for the TMOGUIAdjust class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <qframe.h>
+#include <q3frame.h>
 #include "TMOGUIAdjustValues.h"
 
 class TMOImage;
@@ -12,7 +12,7 @@ class QLineEdit;
 class QPushButton;
 class QString;
 
-class TMOGUIAdjust : public QFrame
+class TMOGUIAdjust : public Q3Frame
 {
 	Q_OBJECT
 public:

@@ -1,5 +1,7 @@
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
 #include <qlist.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include "TMOGUIMenu.h"
 #include "TMOGUIZoomTool.h"
 #include "TMOGUIStatus.h"
@@ -19,11 +21,11 @@ class TMOGUIImageSize;
 class QAssistantClient;
 
 
-class TMOGUIWindow : public QMainWindow
+class TMOGUIWindow : public Q3MainWindow
 {
 	Q_OBJECT
 public:
-	TMOGUIWindow( QWidget* parent = 0, const char* name = 0, WFlags f = WType_TopLevel );
+	TMOGUIWindow( QWidget* parent = 0, const char* name = 0, Qt::WFlags f = Qt::WType_TopLevel );
 	virtual ~TMOGUIWindow();
 	void openFile(QString fileName);
 	
